@@ -1,27 +1,20 @@
 import '../App.css';
+import argentBankLogo from '../assets/img/argentBankLogo.png';
 
 function SignIn() {
   return (
     <div>
-      <meta charSet="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Argent Bank - Home Page</title>
-      <link rel="stylesheet" href="./css/main.css" />
-      <link
-        rel="stylesheet"
-        href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-      />
       <nav className="main-nav">
-        <a className="main-nav-logo" href="./index.html">
+        <a className="main-nav-logo" href="/">
           <img
             className="main-nav-logo-image"
-            src="./img/argentBankLogo.png"
+            src={argentBankLogo}
             alt="Argent Bank Logo"
           />
           <h1 className="sr-only">Argent Bank</h1>
         </a>
         <div>
-          <a className="main-nav-item" href="./sign-in.html">
+          <a className="main-nav-item" href="/sign-in">
             <i className="fa fa-user-circle" />
             Sign In
           </a>
@@ -45,7 +38,7 @@ function SignIn() {
               <label htmlFor="remember-me">Remember me</label>
             </div>
             {/* PLACEHOLDER DUE TO STATIC SITE */}
-            <a href="./user.html" className="sign-in-button">
+            <a href="/user" className="sign-in-button">
               Sign In
             </a>
             {/* SHOULD BE THE BUTTON BELOW */}
