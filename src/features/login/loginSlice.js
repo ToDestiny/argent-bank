@@ -1,20 +1,25 @@
+import { selectUser } from '../utils/selectors';
 import { createSlice } from '@reduxjs/toolkit';
 
-export const loginSlice = createSlice({
-  name: 'login',
-  initialState: {
-    status: 'void',
-    data: null,
-    error: null,
-  },
+const initialState = {};
+
+function setVoidUndefined(draft, userId) {
+  if (draft[userId] === undefined) {
+    draft[userId] = { status: 'void' };
+  }
+}
+
+const { actions, reducer } = createSlice({
+  name: 'user',
+  initialState,
   reducers: {
-    fetching: (state) => {},
-    resolved: (state) => {},
-    rejected: (state) => {},
+    fetching: {
+      prepare: (userId) => ({
+        payload: { userId },
+      }),
+      reducer: (draft, action) => {
+        setVoidUndefined(draft, action.payload.userId);
+      },
+    },
   },
 });
-
-// Action creators are generated for each case reducer function
-export const { fetching, resolved, rejected } = loginSlice.actions;
-
-export default loginSlice.reducer;
