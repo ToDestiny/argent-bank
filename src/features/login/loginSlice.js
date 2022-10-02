@@ -1,4 +1,4 @@
-import { selectUser } from '../utils/selectors';
+import { selectUser } from '../../utils/selectors';
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {};
