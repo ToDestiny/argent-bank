@@ -1,4 +1,3 @@
-import { selectUser } from '../../utils/selectors';
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {};
@@ -10,7 +9,7 @@ function setVoidUndefined(draft, userId) {
 }
 
 const { actions, reducer } = createSlice({
-  name: 'user',
+  name: 'login',
   initialState,
   reducers: {
     fetching: {
@@ -21,5 +20,10 @@ const { actions, reducer } = createSlice({
         setVoidUndefined(draft, action.payload.userId);
       },
     },
+    /*     resolved,
+    rejected, */
   },
 });
+
+export const { fetching } = actions;
+export default reducer;
