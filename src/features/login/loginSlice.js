@@ -1,23 +1,40 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {};
-
 function setVoidUndefined(draft, userId) {
   if (draft[userId] === undefined) {
     draft[userId] = { status: 'void' };
   }
 }
 
+export function fecthLogin(emailUser, passwordUser) {
+  return async (dispatch, getState) => {};
+}
+
 const { actions, reducer } = createSlice({
   name: 'login',
-  initialState,
+  initialState: {
+    email: null,
+    password: null,
+  },
   reducers: {
     fetching: {
-      prepare: (userId) => ({
-        payload: { userId },
+      prepare: (emailUser, passwordUser) => ({
+        payload: { emailUser, passwordUser },
       }),
       reducer: (draft, action) => {
-        setVoidUndefined(draft, action.payload.userId);
+        setVoidUndefined(
+          draft,
+          action.payload.emailUser,
+          action.payload.passwordUser
+        );
+        if (
+          draft[action.payload.emailUser].status ||
+          draft[action.payload.passwordUser].status === 'void'
+        ) {
+          draft[action.payload.emailUser].status = 'pending';
+          draft[action.payload.passwordUser].status = 'pending';
+          return;
+        }
       },
     },
     /*     resolved,

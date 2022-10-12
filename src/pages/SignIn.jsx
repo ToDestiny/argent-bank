@@ -1,8 +1,15 @@
 import '../App.css';
 import argentBankLogo from '../assets/img/argentBankLogo.png';
 import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchLogin } from '../features/login/loginSlice';
+import { selectLogin } from '../utils/selectors';
 
 function SignIn() {
+  const dispatch = useDispatch();
+
+  const login = useSelector(selectLogin);
+
   const {
     register,
     handleSubmit,
@@ -41,6 +48,8 @@ function SignIn() {
           <form
             onSubmit={handleSubmit((data) => {
               console.log(data);
+              dispatch(fetchLogin);
+              console.log(login.status);
             })}
           >
             <div className="input-wrapper">
@@ -72,10 +81,7 @@ function SignIn() {
               <input type="checkbox" id="remember-me" />
               <label htmlFor="remember-me">Remember me</label>
             </div>
-            {/* PLACEHOLDER DUE TO STATIC SITE */}
-            <input class="sign-in-button" type="submit" />
-            {/* <button class="sign-in-button">Sign In</button> */}
-            {/*  */}
+            <input class="sign-in-button" type="submit" value="Sign In" />
           </form>
         </section>
       </main>

@@ -1,5 +1,5 @@
-const voidUser = { status: 'void' };
+const voidLogin = { status: 'void' };
 
-export const selectUser = (userId) => (state) => {
-  return state.user[userId] ?? voidUser;
+export const selectLogin = (emailUser, passwordUser) => (state) => {
+  return (state.login[emailUser] && state.login[passwordUser]) ?? voidLogin;
 };
