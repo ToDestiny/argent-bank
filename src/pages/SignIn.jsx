@@ -2,7 +2,7 @@ import '../App.css';
 import argentBankLogo from '../assets/img/argentBankLogo.png';
 // import { useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useLoginUserMutation } from '../services/authApi';
 
 const initialState = {
@@ -13,7 +13,7 @@ const initialState = {
 function SignIn() {
   const [formValue, setFormValue] = useState(initialState);
   const { email, password } = formValue;
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   // const {
   //   register,
@@ -44,7 +44,7 @@ function SignIn() {
   useEffect(() => {
     if (isSuccess) {
       console.log('User logged successfully');
-      // navigate('/user/profile');
+      navigate('/user/profile');
     }
   }, [isSuccess]);
 
@@ -76,9 +76,10 @@ function SignIn() {
           <div className="input-wrapper">
             <label htmlFor="username">Username</label>
             <input
-              type="text"
+              type="email"
               id="email"
               value={email}
+              name="email"
               onChange={handleChange}
               // {...register('firstName', { required: 'This is required.' })}
             />
@@ -89,6 +90,7 @@ function SignIn() {
             <input
               type="password"
               id="password"
+              name="password"
               value={password}
               onChange={handleChange}
               // {...register('password', {
