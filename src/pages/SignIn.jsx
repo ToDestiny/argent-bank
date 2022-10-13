@@ -15,10 +15,6 @@ const initialState = {
 };
 
 function SignIn() {
-  const dispatch = useDispatch();
-
-  const login = useSelector(selectLogin);
-
   const {
     register,
     handleSubmit,
@@ -44,9 +40,9 @@ function SignIn() {
           <h1 className="sr-only">Argent Bank</h1>
         </a>
         <div>
-          <a className="main-nav-item" href="/sign-in">
+          <a className="main-nav-item" href="/sign-up">
             <i className="fa fa-user-circle" />
-            Sign In
+            Sign Up
           </a>
         </div>
       </nav>
@@ -77,7 +73,6 @@ function SignIn() {
                   required: 'This is required.',
                   minLength: {
                     value: 4,
-
                     message: 'Min length is 4',
                   },
                 })}

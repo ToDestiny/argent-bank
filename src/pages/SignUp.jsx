@@ -40,7 +40,7 @@ function SignUp() {
         <div>
           <a className="main-nav-item" href="/sign-in">
             <i className="fa fa-user-circle" />
-            Sign Up
+            Sign In
           </a>
         </div>
       </nav>

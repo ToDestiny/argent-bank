@@ -22,6 +22,10 @@ function Home() {
             <i className="fa fa-user-circle" />
             Sign In
           </a>
+          <a className="main-nav-item" href="/sign-up">
+            <i className="fa fa-user-circle" />
+            Sign Up
+          </a>
         </div>
       </nav>
       <main>
