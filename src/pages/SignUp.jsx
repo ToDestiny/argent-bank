@@ -1,8 +1,6 @@
 import '../App.css';
 import argentBankLogo from '../assets/img/argentBankLogo.png';
 import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectLogin } from '../utils/selectors';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,11 +12,7 @@ const initialState = {
   confirmPassword: '',
 };
 
-function SignIn() {
-  const dispatch = useDispatch();
-
-  const login = useSelector(selectLogin);
-
+function SignUp() {
   const {
     register,
     handleSubmit,
@@ -46,27 +40,45 @@ function SignIn() {
         <div>
           <a className="main-nav-item" href="/sign-in">
             <i className="fa fa-user-circle" />
-            Sign In
+            Sign Up
           </a>
         </div>
       </nav>
       <main className="main bg-dark">
         <section className="sign-in-content">
           <i className="fa fa-user-circle sign-in-icon" />
-          <h1>Sign In</h1>
+          <h1>Sign Up</h1>
           <form
             onSubmit={handleSubmit((data) => {
               console.log(data);
             })}
           >
             <div className="input-wrapper">
-              <label htmlFor="username">Username</label>
+              <label htmlFor="firstName">First Name</label>
               <input
                 type="text"
-                id="username"
+                id="firstName"
                 {...register('firstName', { required: 'This is required.' })}
               />
               {errors.firstName?.message && <span>This is required.</span>}
+            </div>
+            <div className="input-wrapper">
+              <label htmlFor="lastName">Last Name</label>
+              <input
+                type="text"
+                id="lastName"
+                {...register('lastName', { required: 'This is required.' })}
+              />
+              {errors.lastName?.message && <span>This is required.</span>}
+            </div>
+            <div className="input-wrapper">
+              <label htmlFor="email">Email</label>
+              <input
+                type="text"
+                id="email"
+                {...register('email', { required: 'This is required.' })}
+              />
+              {errors.lastName?.message && <span>This is required.</span>}
             </div>
             <div className="input-wrapper">
               <label htmlFor="password">Password</label>
@@ -77,18 +89,23 @@ function SignIn() {
                   required: 'This is required.',
                   minLength: {
                     value: 4,
-
                     message: 'Min length is 4',
                   },
                 })}
               />
+            </div>
+            <div className="input-wrapper">
+              <label htmlFor="confirmPassword">Confirm Password</label>
+              <input
+                type="password"
+                id="confirmPassword"
+                {...register('confirmPassword', {
+                  required: 'This is required.',
+                })}
+              />
               {errors.password?.message && <span>This is required.</span>}
             </div>
-            <div className="input-remember">
-              <input type="checkbox" id="remember-me" />
-              <label htmlFor="remember-me">Remember me</label>
-            </div>
-            <input class="sign-in-button" type="submit" value="Sign In" />
+            <input class="sign-in-button" type="submit" value="Register" />
           </form>
         </section>
       </main>
@@ -99,4 +116,4 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+export default SignUp;
