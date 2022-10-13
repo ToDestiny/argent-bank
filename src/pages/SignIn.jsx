@@ -3,7 +3,7 @@ import argentBankLogo from '../assets/img/argentBankLogo.png';
 // import { useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
 // import { useNavigate } from 'react-router-dom';
-import { userLoginUserMutation } from '../services/authApi';
+import { useLoginUserMutation } from '../services/authApi';
 
 const initialState = {
   email: '',
@@ -27,7 +27,7 @@ function SignIn() {
   // });
 
   const [loginUser, { data, isSuccess, isError, error }] =
-    userLoginUserMutation();
+    useLoginUserMutation();
 
   const handleChange = (e) => {
     setFormValue({ ...formValue, [e.target.name]: e.target.value });
@@ -108,9 +108,10 @@ function SignIn() {
           <button
             className="sign-in-button"
             type="button"
-            value="Sign In"
             onClick={() => handleLogin()}
-          />
+          >
+            Sign In
+          </button>
           {/* </form> */}
         </section>
       </main>

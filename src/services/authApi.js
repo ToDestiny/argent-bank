@@ -5,8 +5,8 @@ export const authApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'http://localhost:3001/api/v1/',
   }),
-  endpoints: (builder) => ({
-    loginUser: builder.mutation({
+  endpoints: (build) => ({
+    loginUser: build.mutation({
       query: (body) => {
         return {
           url: '/user/login',
@@ -18,4 +18,4 @@ export const authApi = createApi({
   }),
 });
 
-export const { userLoginUserMutation } = authApi;
+export const { useLoginUserMutation } = authApi;
