@@ -1,16 +1,8 @@
 import '../App.css';
 import argentBankLogo from '../assets/img/argentBankLogo.png';
 import { useForm } from 'react-hook-form';
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-
-const initialState = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  password: '',
-  confirmPassword: '',
-};
+// import { useState, useEffect } from 'react';
+// import { useNavigate } from 'react-router-dom';
 
 function SignUp() {
   const {
@@ -20,7 +12,10 @@ function SignUp() {
   } = useForm({
     defaultValues: {
       firstName: '',
+      lastName: '',
+      email: '',
       password: '',
+      confirmPassword: '',
     },
   });
 
@@ -105,7 +100,7 @@ function SignUp() {
               />
               {errors.password?.message && <span>This is required.</span>}
             </div>
-            <input class="sign-in-button" type="submit" value="Register" />
+            <input className="sign-in-button" type="submit" value="Register" />
           </form>
         </section>
       </main>

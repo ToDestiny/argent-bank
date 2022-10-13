@@ -1,32 +1,54 @@
 import '../App.css';
 import argentBankLogo from '../assets/img/argentBankLogo.png';
-import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectLogin } from '../utils/selectors';
+// import { useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
+import { userLoginUserMutation } from '../services/authApi';
 
 const initialState = {
   firstName: '',
-  lastName: '',
-  email: '',
   password: '',
-  confirmPassword: '',
 };
 
 function SignIn() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    defaultValues: {
-      firstName: '',
-      password: '',
-    },
-  });
+  const [formValue, setFormValue] = useState(initialState);
+  const { firstName, password } = formValue;
+  // const navigate = useNavigate();
 
-  console.log(errors);
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   formState: { errors },
+  // } = useForm({
+  //   defaultValues: {
+  //     firstName: '',
+  //     password: '',
+  //   },
+  // });
+
+  const [loginUser, { data, isSuccess, isError, error }] =
+    userLoginUserMutation();
+
+  const handleChange = (e) => {
+    setFormValue({ ...formValue, [e.target.name]: e.target.value });
+  };
+
+  const handleLogin = async () => {
+    if (firstName && password) {
+      await loginUser({ firstName, password });
+    } else {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (isSuccess) {
+      console.log('User logged successfully');
+      // navigate('/user/profile');
+    }
+  }, [isSuccess]);
+
+  //console.log(errors);
 
   return (
     <div>
@@ -50,41 +72,46 @@ function SignIn() {
         <section className="sign-in-content">
           <i className="fa fa-user-circle sign-in-icon" />
           <h1>Sign In</h1>
-          <form
-            onSubmit={handleSubmit((data) => {
-              console.log(data);
-            })}
-          >
-            <div className="input-wrapper">
-              <label htmlFor="username">Username</label>
-              <input
-                type="text"
-                id="username"
-                {...register('firstName', { required: 'This is required.' })}
-              />
-              {errors.firstName?.message && <span>This is required.</span>}
-            </div>
-            <div className="input-wrapper">
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                id="password"
-                {...register('password', {
-                  required: 'This is required.',
-                  minLength: {
-                    value: 4,
-                    message: 'Min length is 4',
-                  },
-                })}
-              />
-              {errors.password?.message && <span>This is required.</span>}
-            </div>
-            <div className="input-remember">
-              <input type="checkbox" id="remember-me" />
-              <label htmlFor="remember-me">Remember me</label>
-            </div>
-            <input class="sign-in-button" type="submit" value="Sign In" />
-          </form>
+          {/* <form onSubmit={handleSubmit(handleLogin())}> */}
+          <div className="input-wrapper">
+            <label htmlFor="username">Username</label>
+            <input
+              type="text"
+              id="firstname"
+              value={firstName}
+              onChange={handleChange}
+              // {...register('firstName', { required: 'This is required.' })}
+            />
+            {/* {errors.firstName?.message && <span>This is required.</span>} */}
+          </div>
+          <div className="input-wrapper">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={handleChange}
+              // {...register('password', {
+              //   required: 'This is required.',
+              //   minLength: {
+              //     value: 4,
+              //     message: 'Min length is 4',
+              //   },
+              // })}
+            />
+            {/* {errors.password?.message && <span>This is required.</span>} */}
+          </div>
+          <div className="input-remember">
+            <input type="checkbox" id="remember-me" />
+            <label htmlFor="remember-me">Remember me</label>
+          </div>
+          <button
+            className="sign-in-button"
+            type="button"
+            value="Sign In"
+            onClick={() => handleLogin()}
+          />
+          {/* </form> */}
         </section>
       </main>
       <footer className="footer">
