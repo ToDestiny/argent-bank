@@ -6,13 +6,13 @@ import { useState, useEffect } from 'react';
 import { userLoginUserMutation } from '../services/authApi';
 
 const initialState = {
-  firstName: '',
+  email: '',
   password: '',
 };
 
 function SignIn() {
   const [formValue, setFormValue] = useState(initialState);
-  const { firstName, password } = formValue;
+  const { email, password } = formValue;
   // const navigate = useNavigate();
 
   // const {
@@ -34,8 +34,8 @@ function SignIn() {
   };
 
   const handleLogin = async () => {
-    if (firstName && password) {
-      await loginUser({ firstName, password });
+    if (email && password) {
+      await loginUser({ email, password });
     } else {
       console.log(error);
     }
@@ -77,8 +77,8 @@ function SignIn() {
             <label htmlFor="username">Username</label>
             <input
               type="text"
-              id="firstname"
-              value={firstName}
+              id="email"
+              value={email}
               onChange={handleChange}
               // {...register('firstName', { required: 'This is required.' })}
             />
