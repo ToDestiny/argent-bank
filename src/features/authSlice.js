@@ -17,11 +17,15 @@ export const authSlice = createSlice({
       );
       state.token = action.payload.token;
     },
+    logout: (state) => {
+      localStorage.clear();
+      state.token = null;
+    },
   },
 });
 
 export const selectAuth = (state) => state.auth;
 
-export const { setUser } = authSlice.actions;
+export const { setUser, logout } = authSlice.actions;
 
 export default authSlice.reducer;

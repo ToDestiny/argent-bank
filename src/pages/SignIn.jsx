@@ -39,7 +39,6 @@ function SignIn() {
   useEffect(() => {
     if (isSuccess) {
       console.log('User logged successfully');
-      console.log(data.body.token);
       dispatch(setUser({ token: data.body.token }));
       navigate('/user');
     }

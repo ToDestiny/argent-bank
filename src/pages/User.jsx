@@ -1,7 +1,19 @@
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import '../App.css';
 import argentBankLogo from '../assets/img/argentBankLogo.png';
+import { logout } from '../features/authSlice';
 
 function User() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // const handleLogout = () => {
+  //   dispatch(logout());
+  //   navigate('/sign-in');
+  //   console.log('User Successfully Logout!');
+  // };
+
   return (
     <div>
       <nav className="main-nav">
@@ -18,10 +30,10 @@ function User() {
             <i className="fa fa-user-circle" />
             Tony
           </a>
-          <a className="main-nav-item" href="/">
+          {/* <button className="main-nav-item" onClick={() => handleLogout()}>
             <i className="fa fa-sign-out" />
             Sign Out
-          </a>
+          </button> */}
         </div>
       </nav>
       <main className="main bg-dark">
