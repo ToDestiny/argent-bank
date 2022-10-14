@@ -1,6 +1,5 @@
 import '../App.css';
 import argentBankLogo from '../assets/img/argentBankLogo.png';
-// import { useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLoginUserMutation } from '../services/authApi';
@@ -12,28 +11,18 @@ const initialState = {
 
 function SignIn() {
   const [formValue, setFormValue] = useState(initialState);
+  const [isSubmit, setSubmit] = useState(false);
   const { email, password } = formValue;
   const navigate = useNavigate();
 
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   formState: { errors },
-  // } = useForm({
-  //   defaultValues: {
-  //     firstName: '',
-  //     password: '',
-  //   },
-  // });
-
-  const [loginUser, { data, isSuccess, isError, error }] =
-    useLoginUserMutation();
+  const [loginUser, { isSuccess, isError, error }] = useLoginUserMutation();
 
   const handleChange = (e) => {
     setFormValue({ ...formValue, [e.target.name]: e.target.value });
   };
 
   const handleLogin = async () => {
+    setSubmit(true);
     if (email && password) {
       await loginUser({ email, password });
     } else {
@@ -46,9 +35,8 @@ function SignIn() {
       console.log('User logged successfully');
       navigate('/user/profile');
     }
+    //eslint-disable-next-line
   }, [isSuccess]);
-
-  //console.log(errors);
 
   return (
     <div>
@@ -72,7 +60,6 @@ function SignIn() {
         <section className="sign-in-content">
           <i className="fa fa-user-circle sign-in-icon" />
           <h1>Sign In</h1>
-          {/* <form onSubmit={handleSubmit(handleLogin())}> */}
           <div className="input-wrapper">
             <label htmlFor="username">Username</label>
             <input
@@ -81,9 +68,8 @@ function SignIn() {
               value={email}
               name="email"
               onChange={handleChange}
-              // {...register('firstName', { required: 'This is required.' })}
             />
-            {/* {errors.firstName?.message && <span>This is required.</span>} */}
+            {isSubmit && !email && <span>This is required.</span>}
           </div>
           <div className="input-wrapper">
             <label htmlFor="password">Password</label>
@@ -93,15 +79,8 @@ function SignIn() {
               name="password"
               value={password}
               onChange={handleChange}
-              // {...register('password', {
-              //   required: 'This is required.',
-              //   minLength: {
-              //     value: 4,
-              //     message: 'Min length is 4',
-              //   },
-              // })}
             />
-            {/* {errors.password?.message && <span>This is required.</span>} */}
+            {isSubmit && !password && <span>This is required.</span>}
           </div>
           <div className="input-remember">
             <input type="checkbox" id="remember-me" />
@@ -114,7 +93,7 @@ function SignIn() {
           >
             Sign In
           </button>
-          {/* </form> */}
+          {isError && <span>Sorry, Login failed!</span>}
         </section>
       </main>
       <footer className="footer">
