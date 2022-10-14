@@ -5,8 +5,19 @@ import Error from './pages/Error';
 import SignIn from './pages/SignIn';
 import User from './pages/User';
 import SignUp from './pages/SignUp';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { setUser } from './features/authSlice';
 
 function App() {
+  const dispatch = useDispatch();
+  const user = JSON.parse(localStorage.getItem('user'));
+
+  useEffect(() => {
+    dispatch(setUser(user));
+    //eslint-disable-next-line
+  }, []);
+
   return (
     <BrowserRouter>
       <Routes>

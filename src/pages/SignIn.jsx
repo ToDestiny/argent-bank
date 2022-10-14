@@ -3,6 +3,8 @@ import argentBankLogo from '../assets/img/argentBankLogo.png';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLoginUserMutation } from '../services/authApi';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../features/authSlice';
 
 const initialState = {
   email: '',
@@ -12,10 +14,14 @@ const initialState = {
 function SignIn() {
   const [formValue, setFormValue] = useState(initialState);
   const [isSubmit, setSubmit] = useState(false);
+  const dispatch = useDispatch();
+
   const { email, password } = formValue;
+
   const navigate = useNavigate();
 
-  const [loginUser, { isSuccess, isError, error }] = useLoginUserMutation();
+  const [loginUser, { data, isSuccess, isError, error }] =
+    useLoginUserMutation();
 
   const handleChange = (e) => {
     setFormValue({ ...formValue, [e.target.name]: e.target.value });
@@ -33,7 +39,9 @@ function SignIn() {
   useEffect(() => {
     if (isSuccess) {
       console.log('User logged successfully');
-      navigate('/user/profile');
+      console.log(data.body.token);
+      dispatch(setUser({ token: data.body.token }));
+      navigate('/user');
     }
     //eslint-disable-next-line
   }, [isSuccess]);
