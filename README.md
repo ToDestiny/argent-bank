@@ -1,4 +1,4 @@
-# Argent Bank
+# Argent Bank - React/Redux App using RTK Query for API calls
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
