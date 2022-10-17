@@ -40,7 +40,7 @@ function SignIn() {
     if (isSuccess) {
       console.log('User logged successfully');
       dispatch(setUser({ token: data.body.token }));
-      navigate('/user');
+      navigate('/profile');
     }
     //eslint-disable-next-line
   }, [isSuccess]);
@@ -88,10 +88,6 @@ function SignIn() {
               onChange={handleChange}
             />
             {isSubmit && !password && <span>This is required.</span>}
-          </div>
-          <div className="input-remember">
-            <input type="checkbox" id="remember-me" />
-            <label htmlFor="remember-me">Remember me</label>
           </div>
           <button
             className="sign-in-button"

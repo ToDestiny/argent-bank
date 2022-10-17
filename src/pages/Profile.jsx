@@ -4,13 +4,13 @@ import '../App.css';
 import argentBankLogo from '../assets/img/argentBankLogo.png';
 import { logout } from '../features/authSlice';
 
-function User() {
+function Profile() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleLogout = () => {
     dispatch(logout());
-    navigate('/sign-in');
+    navigate('/');
     console.log('User Successfully Logout!');
   };
 
@@ -26,7 +26,7 @@ function User() {
           <h1 className="sr-only">Argent Bank</h1>
         </a>
         <div>
-          <a className="main-nav-item" href="/user">
+          <a className="main-nav-item" href="/profile">
             <i className="fa fa-user-circle" />
             Tony
           </a>
@@ -84,4 +84,4 @@ function User() {
   );
 }
 
-export default User;
+export default Profile;
