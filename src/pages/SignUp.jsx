@@ -1,25 +1,57 @@
 import '../App.css';
 import argentBankLogo from '../assets/img/argentBankLogo.png';
-import { useForm } from 'react-hook-form';
-// import { useState, useEffect } from 'react';
-// import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useRegisterUserMutation } from '../services/authApi';
+
+const initialState = {
+  firstName: '',
+  lastName: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
+};
 
 function SignUp() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    defaultValues: {
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-    },
-  });
+  const [formValue, setFormValue] = useState(initialState);
+  const [isSubmit, setSubmit] = useState(false);
+  const [isErrorPassword, setErrorPassword] = useState(false);
 
-  console.log(errors);
+  const { firstName, lastName, email, password, confirmPassword } = formValue;
+
+  const navigate = useNavigate();
+
+  const [registerUser, { data, isSuccess, isError, error }] =
+    useRegisterUserMutation();
+
+  const handleChange = (e) => {
+    console.log(e.target.value);
+    setFormValue({ ...formValue, [e.target.name]: e.target.value });
+  };
+
+  const handleSignup = async () => {
+    setErrorPassword(false);
+    if (password !== confirmPassword) {
+      setErrorPassword(true);
+      return;
+    }
+    setSubmit(true);
+    if (email && password && firstName && lastName) {
+      await registerUser({ email, password, firstName, lastName });
+    } else {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (isSuccess) {
+      alert('You succesfully registered!');
+      console.log(data.body);
+      console.log('User Registered Successfully');
+      navigate('/sign-in');
+    }
+    //eslint-disable-next-line
+  }, [isSuccess]);
 
   return (
     <div>
@@ -43,65 +75,70 @@ function SignUp() {
         <section className="sign-in-content">
           <i className="fa fa-user-circle sign-in-icon" />
           <h1>Sign Up</h1>
-          <form
-            onSubmit={handleSubmit((data) => {
-              console.log(data);
-            })}
+          <div className="input-wrapper">
+            <label htmlFor="firstName">First Name</label>
+            <input
+              type="firstName"
+              id="firstName"
+              value={firstName}
+              name="firstName"
+              onChange={handleChange}
+            />
+            {isSubmit && !firstName && <span>This is required.</span>}
+          </div>
+          <div className="input-wrapper">
+            <label htmlFor="lastName">Last Name</label>
+            <input
+              type="lastName"
+              id="lastName"
+              value={lastName}
+              name="lastName"
+              onChange={handleChange}
+            />
+            {isSubmit && !lastName && <span>This is required.</span>}
+          </div>
+          <div className="input-wrapper">
+            <label htmlFor="username">Email</label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              name="email"
+              onChange={handleChange}
+            />
+            {isSubmit && !email && <span>This is required.</span>}
+          </div>
+          <div className="input-wrapper">
+            <label htmlFor="password">Password</label>
+            <input
+              type="text"
+              id="password"
+              name="password"
+              value={password}
+              onChange={handleChange}
+            />
+            {isSubmit && !password && <span>This is required.</span>}
+          </div>
+          <div className="input-wrapper">
+            <label htmlFor="confirmPassword">Confirm Password</label>
+            <input
+              type="text"
+              id="confirmPassword"
+              name="confirmPassword"
+              value={confirmPassword}
+              onChange={handleChange}
+            />
+            {isSubmit && !confirmPassword && <span>This is required.</span>}
+          </div>
+          <button
+            className="sign-in-button"
+            type="button"
+            onClick={() => handleSignup()}
           >
-            <div className="input-wrapper">
-              <label htmlFor="firstName">First Name</label>
-              <input
-                type="text"
-                id="firstName"
-                {...register('firstName', { required: 'This is required.' })}
-              />
-              {errors.firstName?.message && <span>This is required.</span>}
-            </div>
-            <div className="input-wrapper">
-              <label htmlFor="lastName">Last Name</label>
-              <input
-                type="text"
-                id="lastName"
-                {...register('lastName', { required: 'This is required.' })}
-              />
-              {errors.lastName?.message && <span>This is required.</span>}
-            </div>
-            <div className="input-wrapper">
-              <label htmlFor="email">Email</label>
-              <input
-                type="text"
-                id="email"
-                {...register('email', { required: 'This is required.' })}
-              />
-              {errors.lastName?.message && <span>This is required.</span>}
-            </div>
-            <div className="input-wrapper">
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                id="password"
-                {...register('password', {
-                  required: 'This is required.',
-                  minLength: {
-                    value: 4,
-                    message: 'Min length is 4',
-                  },
-                })}
-              />
-            </div>
-            <div className="input-wrapper">
-              <label htmlFor="confirmPassword">Confirm Password</label>
-              <input
-                type="password"
-                id="confirmPassword"
-                {...register('confirmPassword', {
-                  required: 'This is required.',
-                })}
-              />
-              {errors.password?.message && <span>This is required.</span>}
-            </div>
-            <input className="sign-in-button" type="submit" value="Register" />
-          </form>
+            Register
+          </button>
+          {isErrorPassword && <span>Your passwords don't match!</span>}
+          {isError && <span>Sorry, Login failed!</span>}
         </section>
       </main>
       <footer className="footer">
