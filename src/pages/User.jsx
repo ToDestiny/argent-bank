@@ -8,11 +8,11 @@ function User() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // const handleLogout = () => {
-  //   dispatch(logout());
-  //   navigate('/sign-in');
-  //   console.log('User Successfully Logout!');
-  // };
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate('/sign-in');
+    console.log('User Successfully Logout!');
+  };
 
   return (
     <div>
@@ -30,10 +30,10 @@ function User() {
             <i className="fa fa-user-circle" />
             Tony
           </a>
-          {/* <button className="main-nav-item" onClick={() => handleLogout()}>
+          <button className="main-nav-item" onClick={() => handleLogout()}>
             <i className="fa fa-sign-out" />
             Sign Out
-          </button> */}
+          </button>
         </div>
       </nav>
       <main className="main bg-dark">

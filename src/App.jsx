@@ -10,13 +10,13 @@ import { useEffect } from 'react';
 import { setUser } from './features/authSlice';
 
 function App() {
-  const dispatch = useDispatch();
-  const user = JSON.parse(localStorage.getItem('user'));
+  // const dispatch = useDispatch();
+  // const user = JSON.parse(localStorage.getItem('user'));
 
-  useEffect(() => {
-    dispatch(setUser(user));
-    //eslint-disable-next-line
-  }, []);
+  //  useEffect(() => {
+  //   dispatch(setUser());
+  //   eslint-disable-next-line
+  // }, []);
 
   return (
     <BrowserRouter>
