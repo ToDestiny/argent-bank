@@ -51,7 +51,7 @@ function SignUp() {
       navigate('/sign-in');
     }
     //eslint-disable-next-line
-  }, [isSuccess]);
+  }, [isSuccess, isError]);
 
   return (
     <div>
@@ -138,7 +138,7 @@ function SignUp() {
             Register
           </button>
           {isErrorPassword && <span>Your passwords don't match!</span>}
-          {isError && <span>Sorry, Login failed!</span>}
+          {isError && <span>${error}</span>}
         </section>
       </main>
       <footer className="footer">
