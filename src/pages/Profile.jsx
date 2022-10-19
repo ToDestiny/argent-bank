@@ -3,10 +3,17 @@ import { useNavigate } from 'react-router-dom';
 import '../App.css';
 import argentBankLogo from '../assets/img/argentBankLogo.png';
 import { logout } from '../features/authSlice';
+import { useProfileUserQuery } from '../services/authApi';
 
 function Profile() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const user = JSON.parse(window.localStorage.getItem('user'));
+  console.log(user.token);
+  const { data, error, isLoading } = useProfileUserQuery(user.token);
+
+  console.log(data);
 
   const handleLogout = () => {
     dispatch(logout());

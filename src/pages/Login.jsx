@@ -11,7 +11,7 @@ const initialState = {
   password: '',
 };
 
-function SignIn() {
+function Login() {
   const [formValue, setFormValue] = useState(initialState);
   const [isSubmit, setSubmit] = useState(false);
   const dispatch = useDispatch();
@@ -42,8 +42,12 @@ function SignIn() {
       dispatch(setUser({ token: data.body.token }));
       navigate('/profile');
     }
+    if (isError) {
+      alert('An error occured during login. Please check your inputs.');
+      console.log(error);
+    }
     //eslint-disable-next-line
-  }, [isSuccess]);
+  }, [isSuccess, isError]);
 
   return (
     <div>
@@ -66,7 +70,7 @@ function SignIn() {
       <main className="main bg-dark">
         <section className="sign-in-content">
           <i className="fa fa-user-circle sign-in-icon" />
-          <h1>Sign In</h1>
+          <h1>Login</h1>
           <div className="input-wrapper">
             <label htmlFor="username">Username</label>
             <input
@@ -94,7 +98,7 @@ function SignIn() {
             type="button"
             onClick={() => handleLogin()}
           >
-            Sign In
+            Login
           </button>
           {isError && <span>Sorry, Login failed!</span>}
         </section>
@@ -106,4 +110,4 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+export default Login;

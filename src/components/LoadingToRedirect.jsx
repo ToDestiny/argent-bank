@@ -8,10 +8,9 @@ function LoadingToRedirect() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCount((currentCount) => currentCount - 1);
-      console.log(count);
     }, 1000);
 
-    count === 0 && navigate('/sign-in');
+    count === 0 && navigate('/login');
 
     return () => clearInterval(interval);
   }, [count, navigate]);

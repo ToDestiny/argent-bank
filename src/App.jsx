@@ -2,7 +2,7 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Error from './pages/Error';
-import SignIn from './pages/SignIn';
+import Login from './pages/Login';
 import Profile from './pages/Profile';
 import SignUp from './pages/SignUp';
 import PrivateRoute from './components/PrivateRoute';
@@ -12,7 +12,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route
           path="/profile"

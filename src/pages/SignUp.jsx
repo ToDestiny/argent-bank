@@ -25,7 +25,6 @@ function SignUp() {
     useRegisterUserMutation();
 
   const handleChange = (e) => {
-    console.log(e.target.value);
     setFormValue({ ...formValue, [e.target.name]: e.target.value });
   };
 
@@ -35,9 +34,20 @@ function SignUp() {
       setErrorPassword(true);
       return;
     }
-    setSubmit(true);
     if (email && password && firstName && lastName) {
-      await registerUser({ email, password, firstName, lastName });
+      setSubmit(true);
+      const response = await registerUser({
+        email,
+        password,
+        firstName,
+        lastName,
+      });
+      console.log(response.error);
+      if (response.error) {
+        setSubmit(false);
+        alert(JSON.stringify(response.error.data.message));
+        return;
+      }
     } else {
       console.log(error);
     }
@@ -48,7 +58,11 @@ function SignUp() {
       alert('You succesfully registered!');
       console.log(data.body);
       console.log('User Registered Successfully');
-      navigate('/sign-in');
+      navigate('/login');
+    }
+    if (isError) {
+      alert('An error occured when registering. Please check your inputs.');
+      console.log(error);
     }
     //eslint-disable-next-line
   }, [isSuccess, isError]);
@@ -65,9 +79,9 @@ function SignUp() {
           <h1 className="sr-only">Argent Bank</h1>
         </a>
         <div>
-          <a className="main-nav-item" href="/sign-in">
+          <a className="main-nav-item" href="/login">
             <i className="fa fa-user-circle" />
-            Sign In
+            Login
           </a>
         </div>
       </nav>

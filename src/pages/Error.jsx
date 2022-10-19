@@ -28,7 +28,7 @@ function Error() {
         <div>
           <a className="main-nav-item" href="./sign-in.html">
             <i className="fa fa-user-circle" />
-            Sign In
+            Login
           </a>
         </div>
       </nav>

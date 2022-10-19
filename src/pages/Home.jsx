@@ -18,9 +18,9 @@ function Home() {
           <h1 className="sr-only">Argent Bank</h1>
         </a>
         <div>
-          <a className="main-nav-item" href="/sign-in">
+          <a className="main-nav-item" href="/login">
             <i className="fa fa-user-circle" />
-            Sign In
+            Login
           </a>
           <a className="main-nav-item" href="/sign-up">
             <i className="fa fa-user-circle" />
