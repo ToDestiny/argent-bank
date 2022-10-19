@@ -14,7 +14,7 @@ function Profile() {
   const { data, error } = useProfileUserQuery(user.token);
   if (error) console.log(error);
 
-  console.log(data)
+  console.log(data);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -36,7 +36,7 @@ function Profile() {
         <div>
           <a className="main-nav-item" href="/profile">
             <i className="fa fa-user-circle" />
-            Tony
+            {data?.body?.firstName}
           </a>
           <button className="main-nav-item" onClick={() => handleLogout()}>
             <i className="fa fa-sign-out" />
@@ -49,7 +49,7 @@ function Profile() {
           <h1>
             Welcome back
             <br />
-            Tony Jarvis!
+            {data?.body?.firstName} {data?.body?.lastName}
           </h1>
           <button className="edit-button">Edit Name</button>
         </div>
