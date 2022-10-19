@@ -25,11 +25,13 @@ export const authApi = createApi({
       },
     }),
     profileUser: build.query({
-      query: (header) => {
+      query: (jwt) => {
         return {
           url: '/user/profile',
           method: 'post',
-          header,
+          headers: {
+            authorization: `Bearer ${jwt}`,
+          },
         };
       },
     }),

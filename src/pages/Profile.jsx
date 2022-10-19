@@ -11,9 +11,10 @@ function Profile() {
 
   const user = JSON.parse(window.localStorage.getItem('user'));
   console.log(user.token);
-  const { data, error, isLoading } = useProfileUserQuery(user.token);
+  const { data, error } = useProfileUserQuery(user.token);
+  if (error) console.log(error);
 
-  console.log(data);
+  console.log(data)
 
   const handleLogout = () => {
     dispatch(logout());
