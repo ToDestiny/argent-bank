@@ -29,13 +29,19 @@ function SignUp() {
   };
 
   const handleSignup = async () => {
+    let re =
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     setErrorPassword(false);
     if (password !== confirmPassword) {
+      setSubmit(true);
       setErrorPassword(true);
       return;
     }
-    if (email && password && firstName && lastName) {
+    if (!re.test(email)) {
+      alert('You have entered an invalid email address!');
       setSubmit(true);
+    }
+    if (email && password && firstName && lastName) {
       const response = await registerUser({
         email,
         password,
@@ -44,12 +50,13 @@ function SignUp() {
       });
       console.log(response.error);
       if (response.error) {
-        setSubmit(false);
         alert(JSON.stringify(response.error.data.message));
         return;
       }
+      setSubmit(true);
     } else {
       console.log(error);
+      setSubmit(true);
     }
   };
 
