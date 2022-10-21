@@ -1,25 +1,63 @@
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import '../App.css';
 import argentBankLogo from '../assets/img/argentBankLogo.png';
 import { logout } from '../features/authSlice';
 import { useProfileUserQuery } from '../services/authApi';
+import { useChangeUserMutation } from '../services/authApi';
+
+const initialState = {
+  firstName: '',
+  lastName: '',
+};
 
 function Profile() {
+  const [isDisplay, setDisplay] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [formValue, setFormValue] = useState(initialState);
+  const [saveValue, setSaveValue] = useState(initialState);
+
+  const { firstNameData, lastNameData } = formValue;
+  const { token, firstName, lastName } = formValue;
+
+  const [
+    changeUser,
+    { changeData, isChangeSuccess, isChangeError, errorChangeData },
+  ] = useChangeUserMutation();
+
+  const handleChange = (e) => {
+    setFormValue({ ...formValue, [e.target.name]: e.target.value });
+    console.log(firstNameData);
+  };
 
   const user = JSON.parse(window.localStorage.getItem('user'));
-  console.log(user.token);
   const { data, error } = useProfileUserQuery(user.token);
   if (error) console.log(error);
+  saveValue.token = user.token;
+  saveValue.firstName = data?.body?.firstName;
+  saveValue.lastName = data?.body?.lastName;
 
-  console.log(data);
+  const handleClick = () => {
+    if (isDisplay) setDisplay(false);
+    else setDisplay(true);
+  };
 
   const handleLogout = () => {
     dispatch(logout());
     navigate('/');
     console.log('User Successfully Logout!');
+  };
+
+  const handleSave = async () => {
+    console.log(token, firstNameData, lastNameData);
+    const res = await changeUser({ token, firstName, lastName });
+    initialState.firstName = firstNameData;
+    initialState.lastName = lastNameData;
+    console.log(res);
+    console.log('User Saved Successfully!');
+    console.log(changeData);
   };
 
   return (
@@ -36,7 +74,7 @@ function Profile() {
         <div>
           <a className="main-nav-item" href="/profile">
             <i className="fa fa-user-circle" />
-            {data?.body?.firstName}
+            {initialState.firstName}
           </a>
           <button className="main-nav-item" onClick={() => handleLogout()}>
             <i className="fa fa-sign-out" />
@@ -49,9 +87,34 @@ function Profile() {
           <h1>
             Welcome back
             <br />
-            {data?.body?.firstName} {data?.body?.lastName}
+            {initialState.firstName} {initialState.lastName}
           </h1>
-          <button className="edit-button">Edit Name</button>
+          {isDisplay && (
+            <div className="edit-div">
+              <input
+                className="edit-input"
+                type="text"
+                id="firstNameData"
+                value={firstNameData}
+                name="firstNameData"
+                onChange={handleChange}
+              />
+              <input
+                className="edit-input"
+                type="text"
+                id="lastNameData"
+                value={lastNameData}
+                name="lastNameData"
+                onChange={handleChange}
+              />
+              <button className="edit-button" onClick={handleSave}>
+                Save
+              </button>
+            </div>
+          )}
+          <button className="edit-button" onClick={handleClick}>
+            {isDisplay ? 'Close' : 'Edit Name'}
+          </button>
         </div>
         <h2 className="sr-only">Accounts</h2>
         <section className="account">

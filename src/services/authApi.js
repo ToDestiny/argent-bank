@@ -35,6 +35,24 @@ export const authApi = createApi({
         };
       },
     }),
+    changeUser: build.mutation({
+      query: (initialState) => {
+        console.log(initialState.jwt);
+        console.log(initialState.firstNameData);
+        console.log(initialState.lastNameData);
+        return {
+          url: '/user/profile',
+          method: 'put',
+          headers: {
+            authorization: `Bearer ${initialState.jwt}`,
+          },
+          body: {
+            firstName: initialState.firstName,
+            lastName: initialState.lastName,
+          },
+        };
+      },
+    }),
   }),
 });
 
@@ -42,4 +60,5 @@ export const {
   useLoginUserMutation,
   useRegisterUserMutation,
   useProfileUserQuery,
+  useChangeUserMutation,
 } = authApi;
