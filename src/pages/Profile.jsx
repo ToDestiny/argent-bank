@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import '../App.css';
@@ -6,6 +6,8 @@ import argentBankLogo from '../assets/img/argentBankLogo.png';
 import { logout } from '../features/authSlice';
 import { useProfileUserQuery } from '../services/authApi';
 import { useChangeUserMutation } from '../services/authApi';
+import { store as authStore } from '../app/store';
+import { getUser } from '../features/authSlice';
 
 const initialState = {
   firstName: '',
@@ -17,23 +19,33 @@ function Profile() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [formValue, setFormValue] = useState(initialState);
-  const [saveValue] = useState(initialState);
 
-  const { token, firstNameData, lastNameData } = formValue;
+  const { firstName, lastName } = formValue;
 
-  const [changeUser, { changeData }] = useChangeUserMutation();
+  const [changeUser] = useChangeUserMutation();
+
+  const user = JSON.parse(window.localStorage.getItem('user'));
+
+  const getProfile = () => {
+    dispatch(
+      getUser({
+        firstName: data?.body?.firstName,
+        lastName: data?.body?.lastName,
+      })
+    );
+  };
+
+  const { data, error } = useProfileUserQuery(user.token);
+  if (error) console.log(error);
+  else {
+    getProfile();
+  }
+  const store = authStore.getState();
+  console.log(store);
 
   const handleChange = (e) => {
     setFormValue({ ...formValue, [e.target.name]: e.target.value });
-    console.log(firstNameData);
   };
-
-  const user = JSON.parse(window.localStorage.getItem('user'));
-  const { data, error } = useProfileUserQuery(user.token);
-  if (error) console.log(error);
-  saveValue.token = user.token;
-  saveValue.firstName = data?.body?.firstName;
-  saveValue.lastName = data?.body?.lastName;
 
   const handleClick = () => {
     if (isDisplay) setDisplay(false);
@@ -47,20 +59,27 @@ function Profile() {
   };
 
   const handleSave = async () => {
+    console.log(formValue);
     const body = {
-      token: token,
-      firstName: firstNameData,
-      lastName: lastNameData,
+      token: store?.auth?.token,
+      firstName: formValue.firstName,
+      lastName: formValue.lastName,
     };
-    console.log(token);
+    dispatch(
+      getUser({
+        firstName: formValue.firstName,
+        lastName: formValue.lastName,
+      })
+    );
     console.log(body);
     const res = await changeUser(body);
-    initialState.firstName = firstNameData;
-    initialState.lastName = lastNameData;
     console.log(res);
     console.log('User Saved Successfully!');
-    console.log(changeData);
   };
+
+  useEffect(() => {
+    //eslint-disable-next-line
+  }, []);
 
   return (
     <div>
@@ -76,7 +95,7 @@ function Profile() {
         <div>
           <a className="main-nav-item" href="/profile">
             <i className="fa fa-user-circle" />
-            {initialState.firstName}
+            {store?.auth?.firstName}
           </a>
           <button className="main-nav-item" onClick={() => handleLogout()}>
             <i className="fa fa-sign-out" />
@@ -89,24 +108,24 @@ function Profile() {
           <h1>
             Welcome back
             <br />
-            {initialState.firstName} {initialState.lastName}
+            {store?.auth?.firstName} {store?.auth?.lastName}
           </h1>
           {isDisplay && (
             <div className="edit-div">
               <input
                 className="edit-input"
                 type="text"
-                id="firstNameData"
-                value={firstNameData}
-                name="firstNameData"
+                id="firstName"
+                value={firstName}
+                name="firstName"
                 onChange={handleChange}
               />
               <input
                 className="edit-input"
                 type="text"
-                id="lastNameData"
-                value={lastNameData}
-                name="lastNameData"
+                id="lastName"
+                value={lastName}
+                name="lastName"
                 onChange={handleChange}
               />
               <button className="edit-button" onClick={handleSave}>

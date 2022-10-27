@@ -37,8 +37,6 @@ export const authApi = createApi({
     }),
     changeUser: build.mutation({
       query: (body) => {
-        console.log(body.token);
-        console.log(body);
         return {
           url: '/user/profile',
           method: 'put',
