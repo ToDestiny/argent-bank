@@ -36,20 +36,16 @@ export const authApi = createApi({
       },
     }),
     changeUser: build.mutation({
-      query: (initialState) => {
-        console.log(initialState.jwt);
-        console.log(initialState.firstNameData);
-        console.log(initialState.lastNameData);
+      query: (body) => {
+        console.log(body.token);
+        console.log(body);
         return {
           url: '/user/profile',
           method: 'put',
           headers: {
-            authorization: `Bearer ${initialState.jwt}`,
+            authorization: `Bearer ${body.token}`,
           },
-          body: {
-            firstName: initialState.firstName,
-            lastName: initialState.lastName,
-          },
+          body,
         };
       },
     }),
