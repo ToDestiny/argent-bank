@@ -17,15 +17,11 @@ function Profile() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [formValue, setFormValue] = useState(initialState);
-  const [saveValue, setSaveValue] = useState(initialState);
+  const [saveValue] = useState(initialState);
 
-  const { firstNameData, lastNameData } = formValue;
-  const { token, firstName, lastName } = formValue;
+  const { token, firstNameData, lastNameData } = formValue;
 
-  const [
-    changeUser,
-    { changeData, isChangeSuccess, isChangeError, errorChangeData },
-  ] = useChangeUserMutation();
+  const [changeUser, { changeData }] = useChangeUserMutation();
 
   const handleChange = (e) => {
     setFormValue({ ...formValue, [e.target.name]: e.target.value });
@@ -51,8 +47,14 @@ function Profile() {
   };
 
   const handleSave = async () => {
-    console.log(token, firstNameData, lastNameData);
-    const res = await changeUser({ token, firstName, lastName });
+    const body = {
+      token: token,
+      firstName: firstNameData,
+      lastName: lastNameData,
+    };
+    console.log(token);
+    console.log(body);
+    const res = await changeUser(body);
     initialState.firstName = firstNameData;
     initialState.lastName = lastNameData;
     console.log(res);
