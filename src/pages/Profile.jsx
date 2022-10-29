@@ -6,8 +6,7 @@ import argentBankLogo from '../assets/img/argentBankLogo.png';
 import { logout } from '../features/authSlice';
 import { useProfileUserQuery } from '../services/authApi';
 import { useChangeUserMutation } from '../services/authApi';
-import { store as authStore } from '../app/store';
-import { getUser } from '../features/authSlice';
+import { setUser } from '../features/authSlice';
 
 const initialState = {
   firstName: '',
@@ -16,6 +15,7 @@ const initialState = {
 
 function Profile() {
   const [isDisplay, setDisplay] = useState(false);
+  const [isLoading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [formValue, setFormValue] = useState(initialState);
@@ -26,22 +26,8 @@ function Profile() {
 
   const user = JSON.parse(window.localStorage.getItem('user'));
 
-  const getProfile = () => {
-    dispatch(
-      getUser({
-        firstName: data?.body?.firstName,
-        lastName: data?.body?.lastName,
-      })
-    );
-  };
-
   const { data, error } = useProfileUserQuery(user.token);
   if (error) console.log(error);
-  else {
-    getProfile();
-  }
-  const store = authStore.getState();
-  console.log(store);
 
   const handleChange = (e) => {
     setFormValue({ ...formValue, [e.target.name]: e.target.value });
@@ -59,27 +45,35 @@ function Profile() {
   };
 
   const handleSave = async () => {
-    console.log(formValue);
+    setLoading(true);
+    initialState.firstName = formValue.firstName;
+    initialState.lastName = formValue.lastName;
+    console.log(initialState.firstName);
     const body = {
-      token: store?.auth?.token,
+      token: user.token,
       firstName: formValue.firstName,
       lastName: formValue.lastName,
     };
-    dispatch(
-      getUser({
-        firstName: formValue.firstName,
-        lastName: formValue.lastName,
-      })
-    );
-    console.log(body);
     const res = await changeUser(body);
     console.log(res);
     console.log('User Saved Successfully!');
+    setLoading(false);
+    alert('User Saved Successfully');
   };
 
   useEffect(() => {
+    setLoading(true);
+    dispatch(
+      setUser({
+        firstName: data?.body?.firstName,
+        lastName: data?.body?.lastName,
+      })
+    );
+    initialState.firstName = data?.body?.firstName;
+    initialState.lastName = data?.body?.lastName;
+    setLoading(false);
     //eslint-disable-next-line
-  }, []);
+  }, [data]);
 
   return (
     <div>
@@ -95,7 +89,7 @@ function Profile() {
         <div>
           <a className="main-nav-item" href="/profile">
             <i className="fa fa-user-circle" />
-            {store?.auth?.firstName}
+            {isLoading ? <span>Loading...</span> : initialState.firstName}
           </a>
           <button className="main-nav-item" onClick={() => handleLogout()}>
             <i className="fa fa-sign-out" />
@@ -108,7 +102,9 @@ function Profile() {
           <h1>
             Welcome back
             <br />
-            {store?.auth?.firstName} {store?.auth?.lastName}
+            {console.log(initialState.firstName)}
+            {isLoading ? null : initialState.firstName}{' '}
+            {isLoading ? null : initialState.lastName}
           </h1>
           {isDisplay && (
             <div className="edit-div">

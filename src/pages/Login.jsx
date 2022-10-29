@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLoginUserMutation } from '../services/authApi';
 import { useDispatch } from 'react-redux';
-import { setUser } from '../features/authSlice';
+import { setUserToken } from '../features/authSlice';
 
 const initialState = {
   email: '',
@@ -39,7 +39,7 @@ function Login() {
   useEffect(() => {
     if (isSuccess) {
       console.log('User Logged Successfully');
-      dispatch(setUser({ token: data?.body?.token }));
+      dispatch(setUserToken({ token: data?.body?.token }));
       navigate('/profile');
     }
     if (isError) {
