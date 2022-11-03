@@ -124,11 +124,14 @@ function Profile() {
                 name="lastName"
                 onChange={handleChange}
               />
-              <button className="edit-button" onClick={handleSave}>
-                Save
-              </button>
             </div>
           )}
+          {isDisplay ? (
+            <button className="edit-button margin-right" onClick={handleSave}>
+              Save
+            </button>
+          ) : null}
+
           <button className="edit-button" onClick={handleClick}>
             {isDisplay ? 'Close' : 'Edit Name'}
           </button>

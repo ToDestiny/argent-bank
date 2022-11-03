@@ -136,7 +136,7 @@ paths:
           type: string
           name: Year
           description: Year search
-          required: true  
+          required: true
         - in: header
           type: string
           name: Authorization
@@ -159,7 +159,7 @@ paths:
         - Bearer: []
       tags:
         - Transaction Module
-      summary:  Transaction API
+      summary: Transaction API
       description: API Find Transaction by ID
       operationId: getTransactionById
       parameters:
@@ -182,7 +182,7 @@ paths:
           schema:
             $ref: '#/components/TransactionResponse'
         '400':
-          description: Invalid TransactionID  
+          description: Invalid TransactionID
         '500':
           description: Internal Server Error
     put:
@@ -193,9 +193,9 @@ paths:
       summary: Transaction API
       description: Update a transaction from the Database
       operationId: updateTransactionById
-      parameters: 
+      parameters:
         - in: header
-          type: string 
+          type: string
           name: Authorization
           description: Attach Bearer JWT token
           required: true
@@ -230,9 +230,9 @@ paths:
       summary: Transaction API
       description: Delete a transaction from the Database
       operationId: deleteTransactionById
-      parameters: 
+      parameters:
         - in: header
-          type: string 
+          type: string
           name: Authorization
           description: Attach Bearer JWT token
           required: true
@@ -252,7 +252,7 @@ paths:
         '500':
           description: Internal Server Error
   /transactions/addTransaction:
-    put:
+    post:
       security:
         - Bearer: []
       tags:
@@ -343,14 +343,14 @@ components:
         type: integer
       message:
         type: string
-      body: 
+      body:
         type: object
         properties:
           id:
             type: string
           transactions:
             type: object
-            description: data  
+            description: data
   TransactionResponse:
     type: object
     properties:
@@ -358,7 +358,7 @@ components:
         type: integer
       message:
         type: string
-      body: 
+      body:
         type: object
         properties:
           date:
@@ -395,7 +395,7 @@ components:
         type: integer
       message:
         type: string
-      body: 
+      body:
         type: object
         properties:
           id:

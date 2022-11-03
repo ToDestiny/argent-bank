@@ -93,6 +93,10 @@ function Login() {
             />
             {isSubmit && !password && <span>This is required.</span>}
           </div>
+          <div class="input-remember">
+            <input type="checkbox" id="remember-me" />
+            <label for="remember-me">Remember me</label>
+          </div>
           <button
             className="sign-in-button"
             type="button"
