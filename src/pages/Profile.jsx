@@ -17,11 +17,11 @@ function Profile() {
   const dispatch = useDispatch();
   const [formValue, setFormValue] = useState(initialState);
 
-  const userFirstName = useSelector((state) => state.auth.firstName);
-  const userLastName = useSelector((state) => state.auth.lastName);
   const { firstName, lastName } = formValue;
 
   const [changeUser] = useChangeUserMutation();
+  const userFirstName = useSelector((state) => state.auth.firstName);
+  const userLastName = useSelector((state) => state.auth.lastName);
 
   const user = JSON.parse(window.localStorage.getItem('user'));
 
