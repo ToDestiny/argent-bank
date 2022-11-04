@@ -4,6 +4,7 @@ const initialState = {
   firstName: null,
   lastName: null,
   token: null,
+  isLogin: false,
 };
 
 export const authSlice = createSlice({
@@ -18,10 +19,14 @@ export const authSlice = createSlice({
         })
       );
       state.token = action.payload.token;
+      state.isLogin = true;
     },
     logout: (state) => {
       localStorage.clear();
       state.token = null;
+      state.firstName = null;
+      state.lastName = null;
+      state.isLogin = false;
     },
     setUser: (state, action) => {
       state.firstName = action.payload.firstName;

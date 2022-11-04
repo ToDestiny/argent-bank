@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import '../App.css';
-import { logout } from '../features/authSlice';
 import { useProfileUserQuery } from '../services/authApi';
 import { useChangeUserMutation } from '../services/authApi';
 import { setUser } from '../features/authSlice';
@@ -17,9 +15,10 @@ function Profile() {
   const [isDisplay, setDisplay] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [formValue, setFormValue] = useState(initialState);
 
+  const userFirstName = useSelector((state) => state.auth.firstName);
+  const userLastName = useSelector((state) => state.auth.lastName);
   const { firstName, lastName } = formValue;
 
   const [changeUser] = useChangeUserMutation();
@@ -38,17 +37,8 @@ function Profile() {
     else setDisplay(true);
   };
 
-  const handleLogout = () => {
-    dispatch(logout());
-    navigate('/');
-    console.log('User Successfully Logout!');
-  };
-
   const handleSave = async () => {
     setLoading(true);
-    initialState.firstName = formValue.firstName;
-    initialState.lastName = formValue.lastName;
-    console.log(initialState.firstName);
     const body = {
       token: user.token,
       firstName: formValue.firstName,
@@ -57,6 +47,12 @@ function Profile() {
     const res = await changeUser(body);
     console.log(res);
     console.log('User Saved Successfully!');
+    dispatch(
+      setUser({
+        firstName: formValue.firstName,
+        lastName: formValue.lastName,
+      })
+    );
     setLoading(false);
     alert('User Saved Successfully');
   };
@@ -69,8 +65,6 @@ function Profile() {
         lastName: data?.body?.lastName,
       })
     );
-    initialState.firstName = data?.body?.firstName;
-    initialState.lastName = data?.body?.lastName;
     setLoading(false);
     //eslint-disable-next-line
   }, [data]);
@@ -78,20 +72,12 @@ function Profile() {
   return (
     <div>
       <Header />
-      {/* {isLoading ? <span>Loading...</span> : initialState.firstName}
-          </a>
-          <button className="main-nav-item" onClick={() => handleLogout()}>
-            <i className="fa fa-sign-out" />
-            Sign Out
-          </button> */}
       <main className="main bg-dark">
         <div className="header">
           <h1>
             Welcome back
             <br />
-            {console.log(initialState.firstName)}
-            {isLoading ? null : initialState.firstName}{' '}
-            {isLoading ? null : initialState.lastName}
+            {isLoading ? null : userFirstName} {isLoading ? null : userLastName}
           </h1>
           {isDisplay && (
             <div className="edit-div">
