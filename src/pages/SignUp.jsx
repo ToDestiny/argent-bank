@@ -1,8 +1,8 @@
 import '../App.css';
-import argentBankLogo from '../assets/img/argentBankLogo.png';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRegisterUserMutation } from '../services/authApi';
+import Header from '../components/Header';
 
 const initialState = {
   firstName: '',
@@ -77,28 +77,13 @@ function SignUp() {
 
   return (
     <div>
-      <nav className="main-nav">
-        <a className="main-nav-logo" href="/">
-          <img
-            className="main-nav-logo-image"
-            src={argentBankLogo}
-            alt="Argent Bank Logo"
-          />
-          <h1 className="sr-only">Argent Bank</h1>
-        </a>
-        <div>
-          <a className="main-nav-item" href="/login">
-            <i className="fa fa-user-circle" />
-            Login
-          </a>
-        </div>
-      </nav>
+      <Header />
       <main className="main bg-dark">
         <section className="sign-in-content">
           <i className="fa fa-user-circle sign-in-icon" />
           <h1>Sign Up</h1>
           <div className="input-wrapper">
-            <label htmlFor="firstName">First Name</label>
+            <label>First Name</label>
             <input
               type="firstName"
               id="firstName"
@@ -109,7 +94,7 @@ function SignUp() {
             {isSubmit && !firstName && <span>This is required.</span>}
           </div>
           <div className="input-wrapper">
-            <label htmlFor="lastName">Last Name</label>
+            <label>Last Name</label>
             <input
               type="lastName"
               id="lastName"
@@ -120,7 +105,7 @@ function SignUp() {
             {isSubmit && !lastName && <span>This is required.</span>}
           </div>
           <div className="input-wrapper">
-            <label htmlFor="username">Email</label>
+            <label>Email</label>
             <input
               type="email"
               id="email"
@@ -131,7 +116,7 @@ function SignUp() {
             {isSubmit && !email && <span>This is required.</span>}
           </div>
           <div className="input-wrapper">
-            <label htmlFor="password">Password</label>
+            <label>Password</label>
             <input
               type="text"
               id="password"
@@ -142,7 +127,7 @@ function SignUp() {
             {isSubmit && !password && <span>This is required.</span>}
           </div>
           <div className="input-wrapper">
-            <label htmlFor="confirmPassword">Confirm Password</label>
+            <label>Confirm Password</label>
             <input
               type="text"
               id="confirmPassword"

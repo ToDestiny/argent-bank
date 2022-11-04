@@ -1,6 +1,6 @@
 import '../App.css';
-import argentBankLogo from '../assets/img/argentBankLogo.png';
 import styled from 'styled-components';
+import Header from '../components/Header';
 
 const ErrorContent = styled.div`
   width: 100%;
@@ -15,23 +15,7 @@ const ErrorContent = styled.div`
 function Error() {
   return (
     <div>
-      <title>Argent Bank - Home Page</title>
-      <nav className="main-nav">
-        <a className="main-nav-logo" href="./index.html">
-          <img
-            className="main-nav-logo-image"
-            src={argentBankLogo}
-            alt="Argent Bank Logo"
-          />
-          <h1 className="sr-only">Argent Bank</h1>
-        </a>
-        <div>
-          <a className="main-nav-item" href="./sign-in.html">
-            <i className="fa fa-user-circle" />
-            Login
-          </a>
-        </div>
-      </nav>
+      <Header />
       <main>
         <div className="hero">
           <section className="hero-content">

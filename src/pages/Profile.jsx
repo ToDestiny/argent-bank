@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import '../App.css';
-import argentBankLogo from '../assets/img/argentBankLogo.png';
 import { logout } from '../features/authSlice';
 import { useProfileUserQuery } from '../services/authApi';
 import { useChangeUserMutation } from '../services/authApi';
 import { setUser } from '../features/authSlice';
+import Header from '../components/Header';
 
 const initialState = {
   firstName: '',
@@ -77,26 +77,13 @@ function Profile() {
 
   return (
     <div>
-      <nav className="main-nav">
-        <a className="main-nav-logo" href="/">
-          <img
-            className="main-nav-logo-image"
-            src={argentBankLogo}
-            alt="Argent Bank Logo"
-          />
-          <h1 className="sr-only">Argent Bank</h1>
-        </a>
-        <div>
-          <a className="main-nav-item" href="/profile">
-            <i className="fa fa-user-circle" />
-            {isLoading ? <span>Loading...</span> : initialState.firstName}
+      <Header />
+      {/* {isLoading ? <span>Loading...</span> : initialState.firstName}
           </a>
           <button className="main-nav-item" onClick={() => handleLogout()}>
             <i className="fa fa-sign-out" />
             Sign Out
-          </button>
-        </div>
-      </nav>
+          </button> */}
       <main className="main bg-dark">
         <div className="header">
           <h1>
