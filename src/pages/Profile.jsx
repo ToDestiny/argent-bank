@@ -20,12 +20,12 @@ function Profile() {
   const { firstName, lastName } = formValue;
 
   const [changeUser] = useChangeUserMutation();
+  const isLogin = useSelector((state) => state.auth.isLogin);
   const userFirstName = useSelector((state) => state.auth.firstName);
   const userLastName = useSelector((state) => state.auth.lastName);
+  const token = useSelector((state) => state.auth.token);
 
-  const user = JSON.parse(window.localStorage.getItem('user'));
-
-  const { data, error } = useProfileUserQuery(user.token);
+  const { data, error } = useProfileUserQuery(token);
   if (error) console.log(error);
 
   const handleChange = (e) => {
@@ -40,7 +40,7 @@ function Profile() {
   const handleSave = async () => {
     setLoading(true);
     const body = {
-      token: user.token,
+      token: token,
       firstName: formValue.firstName,
       lastName: formValue.lastName,
     };
@@ -59,12 +59,13 @@ function Profile() {
 
   useEffect(() => {
     setLoading(true);
-    dispatch(
-      setUser({
-        firstName: data?.body?.firstName,
-        lastName: data?.body?.lastName,
-      })
-    );
+    if (data && !isLogin)
+      dispatch(
+        setUser({
+          firstName: data?.body?.firstName,
+          lastName: data?.body?.lastName,
+        })
+      );
     setLoading(false);
     //eslint-disable-next-line
   }, [data]);

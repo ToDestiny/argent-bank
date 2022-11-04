@@ -64,7 +64,6 @@ function SignUp() {
   useEffect(() => {
     if (isSuccess) {
       alert('You succesfully registered!');
-      console.log(data.body);
       console.log('User Registered Successfully');
       navigate('/login');
     }

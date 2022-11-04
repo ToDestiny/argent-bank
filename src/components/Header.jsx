@@ -12,7 +12,6 @@ function Header() {
   const navigate = useNavigate();
   const isLogin = useSelector((state) => state.auth.isLogin);
   const userFirstName = useSelector((state) => state.auth.firstName);
-  console.log(isLogin);
   const handleLogout = () => {
     dispatch(logout());
     navigate('/');

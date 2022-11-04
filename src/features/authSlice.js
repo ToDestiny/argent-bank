@@ -12,25 +12,19 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     setUserToken: (state, action) => {
-      localStorage.setItem(
-        'user',
-        JSON.stringify({
-          token: action.payload.token,
-        })
-      );
       state.token = action.payload.token;
-      state.isLogin = true;
     },
     logout: (state) => {
       localStorage.clear();
       state.token = null;
+      state.isLogin = false;
       state.firstName = null;
       state.lastName = null;
-      state.isLogin = false;
     },
     setUser: (state, action) => {
       state.firstName = action.payload.firstName;
       state.lastName = action.payload.lastName;
+      state.isLogin = true;
     },
   },
 });
