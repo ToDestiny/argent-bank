@@ -5,6 +5,7 @@ import { useProfileUserQuery } from '../services/authApi';
 import { useChangeUserMutation } from '../services/authApi';
 import { setUser } from '../features/authSlice';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 const initialState = {
   firstName: '',
@@ -142,9 +143,7 @@ function Profile() {
           </div>
         </section>
       </main>
-      <footer className="footer">
-        <p className="footer-text">Copyright 2020 Argent Bank</p>
-      </footer>
+      <Footer />
     </div>
   );
 }

@@ -5,6 +5,7 @@ import { useLoginUserMutation } from '../services/authApi';
 import { useDispatch } from 'react-redux';
 import { setUserToken } from '../features/authSlice';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 const initialState = {
   email: '',
@@ -92,9 +93,7 @@ function Login() {
           {isError && <span>Sorry, Login failed!</span>}
         </section>
       </main>
-      <footer className="footer">
-        <p className="footer-text">Copyright 2020 Argent Bank</p>
-      </footer>
+      <Footer />
     </div>
   );
 }

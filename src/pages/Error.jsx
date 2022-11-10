@@ -1,6 +1,7 @@
 import '../App.css';
 import styled from 'styled-components';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 const ErrorContent = styled.div`
   width: 100%;
@@ -38,9 +39,7 @@ function Error() {
           </ErrorContent>
         </section>
       </main>
-      <footer className="footer">
-        <p className="footer-text">Copyright 2020 Argent Bank</p>
-      </footer>
+      <Footer />
     </div>
   );
 }

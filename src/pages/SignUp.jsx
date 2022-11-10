@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRegisterUserMutation } from '../services/authApi';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 const initialState = {
   firstName: '',
@@ -147,9 +148,7 @@ function SignUp() {
           {isError && <span>${error}</span>}
         </section>
       </main>
-      <footer className="footer">
-        <p className="footer-text">Copyright 2020 Argent Bank</p>
-      </footer>
+      <Footer />
     </div>
   );
 }
