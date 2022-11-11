@@ -6,6 +6,13 @@ import { useChangeUserMutation } from '../services/authApi';
 import { setUser } from '../features/authSlice';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import styled from 'styled-components';
+
+const Container = styled.footer`
+  height: 85vh;
+  padding-top: 3rem;
+  margin-bottom: -3rem;
+`;
 
 const initialState = {
   firstName: '',
@@ -74,7 +81,7 @@ function Profile() {
   return (
     <div>
       <Header />
-      <main className="main bg-dark">
+      <Container className="main bg-dark">
         <div className="header">
           <h1>
             Welcome back
@@ -142,7 +149,7 @@ function Profile() {
             <button className="transaction-button">View transactions</button>
           </div>
         </section>
-      </main>
+      </Container>
       <Footer />
     </div>
   );

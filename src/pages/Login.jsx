@@ -6,6 +6,15 @@ import { useDispatch } from 'react-redux';
 import { setUserToken } from '../features/authSlice';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import styled from 'styled-components';
+
+const Container = styled.footer`
+  height: 85vh;
+  padding-top: 3rem;
+  margin-bottom: -3rem;
+`;
+
+const Section = styled.section``;
 
 const initialState = {
   email: '',
@@ -51,10 +60,10 @@ function Login() {
   }, [isSuccess, isError]);
 
   return (
-    <div>
+    <>
       <Header />
-      <main className="main bg-dark">
-        <section className="sign-in-content">
+      <Container className="main bg-dark">
+        <Section className="sign-in-content">
           <i className="fa fa-user-circle sign-in-icon" />
           <h1>Login</h1>
           <div className="input-wrapper">
@@ -91,10 +100,10 @@ function Login() {
             Login
           </button>
           {isError && <span>Sorry, Login failed!</span>}
-        </section>
-      </main>
+        </Section>
+      </Container>
       <Footer />
-    </div>
+    </>
   );
 }
 

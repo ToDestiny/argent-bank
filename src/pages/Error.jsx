@@ -3,6 +3,11 @@ import styled from 'styled-components';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
+const Container = styled.footer`
+  height: 85vh;
+  margin-bottom: -3rem;
+`;
+
 const ErrorContent = styled.div`
   width: 100%;
   display: flex;
@@ -17,7 +22,7 @@ function Error() {
   return (
     <div>
       <Header />
-      <main>
+      <Container>
         <div className="hero">
           <section className="hero-content">
             <h2 className="sr-only">Promoted Content</h2>
@@ -38,7 +43,7 @@ function Error() {
             </h1>
           </ErrorContent>
         </section>
-      </main>
+      </Container>
       <Footer />
     </div>
   );

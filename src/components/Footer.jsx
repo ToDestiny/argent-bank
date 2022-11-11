@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Container = styled.footer`
-  bottom: 0;
+  height: -3rem;
+  background-color: white;
 `;
 
 function Footer() {

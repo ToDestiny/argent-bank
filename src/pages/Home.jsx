@@ -3,13 +3,19 @@ import iconMoney from '../assets/img/icon-money.png';
 import iconSecurity from '../assets/img/icon-security.png';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import styled from 'styled-components';
+
+const Container = styled.footer`
+  height: 85vh;
+  margin-bottom: -3rem;
+`;
 
 function Home() {
   return (
     <div>
       <title>Argent Bank - Home Page</title>
       <Header />
-      <main>
+      <Container>
         <div className="hero">
           <section className="hero-content">
             <h2 className="sr-only">Promoted Content</h2>
@@ -49,7 +55,7 @@ function Home() {
             </p>
           </div>
         </section>
-      </main>
+      </Container>
       <Footer />
     </div>
   );

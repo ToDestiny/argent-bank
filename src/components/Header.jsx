@@ -6,6 +6,13 @@ import { useSelector } from 'react-redux';
 import { logout } from '../features/authSlice';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+
+const Container = styled.nav`
+  height: 3rem;
+  display: flex;
+  align-items: center;
+`;
 
 function Header() {
   const dispatch = useDispatch();
@@ -19,43 +26,40 @@ function Header() {
     console.log('User Successfully Logout!');
   };
   return (
-    <>
-      {' '}
-      <nav className="main-nav">
-        <Link className="main-nav-logo" to="/">
-          <img
-            className="main-nav-logo-image"
-            src={argentBankLogo}
-            alt="Argent Bank Logo"
-          />
-          <h1 className="sr-only">Argent Bank</h1>
-        </Link>
-        <div>
-          {isLogin ? (
-            <>
-              <Link className="main-nav-item" to="/profile">
-                <i className="fa fa-user-circle" />
-                {userFirstName}
-              </Link>
-              <Link className="main-nav-item" onClick={() => handleLogout()}>
-                <i className="fa fa-sign-out" />
-                Sign Out
-              </Link>
-            </>
-          ) : (
-            <Link className="main-nav-item" to="/login">
+    <Container className="main-nav">
+      <Link className="main-nav-logo" to="/">
+        <img
+          className="main-nav-logo-image"
+          src={argentBankLogo}
+          alt="Argent Bank Logo"
+        />
+        <h1 className="sr-only">Argent Bank</h1>
+      </Link>
+      <div>
+        {isLogin ? (
+          <>
+            <Link className="main-nav-item" to="/profile">
               <i className="fa fa-user-circle" />
-              Login
+              {userFirstName}
             </Link>
-          )}
-
-          <Link className="main-nav-item" to="/sign-up">
+            <Link className="main-nav-item" onClick={() => handleLogout()}>
+              <i className="fa fa-sign-out" />
+              Sign Out
+            </Link>
+          </>
+        ) : (
+          <Link className="main-nav-item" to="/login">
             <i className="fa fa-user-circle" />
-            Sign Up
+            Login
           </Link>
-        </div>
-      </nav>
-    </>
+        )}
+
+        <Link className="main-nav-item" to="/sign-up">
+          <i className="fa fa-user-circle" />
+          Sign Up
+        </Link>
+      </div>
+    </Container>
   );
 }
 

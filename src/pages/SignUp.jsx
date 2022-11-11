@@ -4,6 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import { useRegisterUserMutation } from '../services/authApi';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import styled from 'styled-components';
+
+const Container = styled.footer`
+  height: 85vh;
+  padding-top: 3rem;
+  margin-bottom: -3rem;
+`;
 
 const initialState = {
   firstName: '',
@@ -22,7 +29,7 @@ function SignUp() {
 
   const navigate = useNavigate();
 
-  const [registerUser, { data, isSuccess, isError, error }] =
+  const [registerUser, { isSuccess, isError, error }] =
     useRegisterUserMutation();
 
   const handleChange = (e) => {
@@ -78,7 +85,7 @@ function SignUp() {
   return (
     <div>
       <Header />
-      <main className="main bg-dark">
+      <Container className="main bg-dark">
         <section className="sign-in-content">
           <i className="fa fa-user-circle sign-in-icon" />
           <h1>Sign Up</h1>
@@ -147,7 +154,7 @@ function SignUp() {
           {isErrorPassword && <span>Your passwords don't match!</span>}
           {isError && <span>${error}</span>}
         </section>
-      </main>
+      </Container>
       <Footer />
     </div>
   );
