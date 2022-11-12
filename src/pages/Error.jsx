@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
-const Container = styled.footer`
-  height: 85vh;
-  margin-bottom: -3rem;
+const Container = styled.div`
+  height: 100%;
+  margin-bottom: 3rem;
 `;
 
 const ErrorContent = styled.div`

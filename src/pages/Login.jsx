@@ -8,13 +8,14 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import styled from 'styled-components';
 
-const Container = styled.footer`
-  height: 85vh;
-  padding-top: 3rem;
-  margin-bottom: -3rem;
+const Wrapper = styled.div`
+  height: 79vh;
 `;
 
-const Section = styled.section``;
+const Container = styled.div`
+  height: 100%;
+  padding-top: 3rem;
+`;
 
 const initialState = {
   email: '',
@@ -60,10 +61,10 @@ function Login() {
   }, [isSuccess, isError]);
 
   return (
-    <>
+    <Wrapper>
       <Header />
       <Container className="main bg-dark">
-        <Section className="sign-in-content">
+        <section className="sign-in-content">
           <i className="fa fa-user-circle sign-in-icon" />
           <h1>Login</h1>
           <div className="input-wrapper">
@@ -100,10 +101,10 @@ function Login() {
             Login
           </button>
           {isError && <span>Sorry, Login failed!</span>}
-        </Section>
+        </section>
       </Container>
       <Footer />
-    </>
+    </Wrapper>
   );
 }
 

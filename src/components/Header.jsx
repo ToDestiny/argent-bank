@@ -9,9 +9,24 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Container = styled.nav`
-  height: 3rem;
+  @media (min-width: 900px) {
+    height: 3rem;
+  }
+  @media (max-width: 899px) {
+    height: 5rem;
+  }
   display: flex;
   align-items: center;
+`;
+
+const BtnWrapper = styled.div`
+  display: flex;
+  @media (min-width: 900px) {
+    flex-direction: row;
+  }
+  @media (max-width: 899px) {
+    flex-direction: column;
+  } ;
 `;
 
 function Header() {
@@ -35,7 +50,7 @@ function Header() {
         />
         <h1 className="sr-only">Argent Bank</h1>
       </Link>
-      <div>
+      <BtnWrapper>
         {isLogin ? (
           <>
             <Link className="main-nav-item" to="/profile">
@@ -58,7 +73,7 @@ function Header() {
           <i className="fa fa-user-circle" />
           Sign Up
         </Link>
-      </div>
+      </BtnWrapper>
     </Container>
   );
 }

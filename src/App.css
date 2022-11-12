@@ -63,8 +63,17 @@ body {
 }
 
 .main-nav-item {
+  display: flex;
   text-decoration: none;
   margin-right: 0.5rem;
+  width: 6em;
+}
+.row {
+  flex-direction: row;
+}
+
+.column {
+  flex-direction: column;
 }
 
 .main-nav-item:hover {

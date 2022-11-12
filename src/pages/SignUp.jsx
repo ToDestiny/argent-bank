@@ -6,10 +6,18 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import styled from 'styled-components';
 
+const Wrapper = styled.div`
+  @media (min-width: 900px) {
+    height: 79vh;
+  }
+  @media (max-width: 899px) {
+    height: 100vh;
+  } ;
+`;
+
 const Container = styled.footer`
-  height: 85vh;
+  height: 100%;
   padding-top: 3rem;
-  margin-bottom: -3rem;
 `;
 
 const initialState = {
@@ -83,7 +91,7 @@ function SignUp() {
   }, [isSuccess, isError]);
 
   return (
-    <div>
+    <Wrapper>
       <Header />
       <Container className="main bg-dark">
         <section className="sign-in-content">
@@ -156,7 +164,7 @@ function SignUp() {
         </section>
       </Container>
       <Footer />
-    </div>
+    </Wrapper>
   );
 }
 

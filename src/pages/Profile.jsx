@@ -8,10 +8,19 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import styled from 'styled-components';
 
+const Wrapper = styled.div`
+  @media (min-width: 900px) {
+    height: 83vh;
+  }
+  @media (max-width: 899px) {
+    height: 100%;
+  }
+`;
+
 const Container = styled.footer`
-  height: 85vh;
+  height: 100%;
   padding-top: 3rem;
-  margin-bottom: -3rem;
+  margin-bottom: -2rem;
 `;
 
 const initialState = {
@@ -79,7 +88,7 @@ function Profile() {
   }, [data]);
 
   return (
-    <div>
+    <Wrapper>
       <Header />
       <Container className="main bg-dark">
         <div className="header">
@@ -151,7 +160,7 @@ function Profile() {
         </section>
       </Container>
       <Footer />
-    </div>
+    </Wrapper>
   );
 }
 

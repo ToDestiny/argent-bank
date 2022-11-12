@@ -5,9 +5,9 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import styled from 'styled-components';
 
-const Container = styled.footer`
-  height: 85vh;
-  margin-bottom: -3rem;
+const Container = styled.div`
+  height: 100%;
+  margin-bottom: 3rem;
 `;
 
 function Home() {
